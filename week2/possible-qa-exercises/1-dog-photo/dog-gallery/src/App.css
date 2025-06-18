@@ -1,0 +1,20 @@
+#root {
+  width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.gallery {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 2em;
+  margin-top: 2em;
+}
+
+.gallery img {
+  width: calc(25% - 2em);
+  height: 300px;
+  border-radius: 10px;
+  object-fit: cover;
+}
