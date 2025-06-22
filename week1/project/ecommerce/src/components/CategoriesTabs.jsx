@@ -4,20 +4,19 @@ function CategoriesTabs({ filter, setFilter }) {
   const categoriesList = categories.map((category) => {
     const filterName = category.slice(6);
     return (
-      <li
-        className={filter === filterName ? "active-tab" : ""}
+      <button
+        key={category}
+        className={`category-button ${
+          filter === filterName ? "active-tab" : ""
+        }`}
         onClick={() => setFilter(filterName)}
       >
         {category}
-      </li>
+      </button>
     );
   });
 
-  return (
-    <>
-      <ul className="categories-tabs">{categoriesList}</ul>
-    </>
-  );
+  return <div className="categories-tabs">{categoriesList}</div>;
 }
 
 export default CategoriesTabs;
