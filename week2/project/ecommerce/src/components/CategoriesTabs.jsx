@@ -14,8 +14,8 @@ function CategoriesTabs({ filter, setFilter, setError }) {
           throw new Error(`Couldn't fetch the data: ${response.status}`);
         }
 
-        const date = await response.json();
-        setCategories(date);
+        const data = await response.json();
+        setCategories(data);
       } catch (error) {
         setError(error.message);
       }

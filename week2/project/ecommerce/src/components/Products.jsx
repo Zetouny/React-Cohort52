@@ -23,8 +23,8 @@ function Products({ filter, setError }) {
           );
         }
 
-        const date = await response.json();
-        setProducts(date);
+        const data = await response.json();
+        setProducts(data);
         setLoading(false);
       } catch (error) {
         setError(error.message);
