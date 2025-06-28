@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import Header from "./components/Header.jsx";
 
 function Product() {
-  let params = useParams();
+  const params = useParams();
 
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,11 +17,13 @@ function Product() {
         );
 
         if (!response.ok) {
-          throw Error(`Couldn't fetch the data: ${response.status}`);
+          throw Error(
+            "We were unable to load the products, please try again in a moment"
+          );
         }
 
-        const date = await response.json();
-        setProduct(date);
+        const data = await response.json();
+        setProduct(data);
         setLoading(false);
       } catch (error) {
         setError(error.message);
@@ -32,27 +33,27 @@ function Product() {
     fetchProduct();
   }, []);
 
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (loading) {
+    return <div>Loading ...</div>;
+  }
+
   return (
     <>
-      {error ? (
-        <div>{error}</div>
-      ) : loading ? (
-        <div>Loading ...</div>
-      ) : (
-        <>
-          <Header title={product.title} />
-          <div className="product-container">
-            <img className="product-image" src={product.image} />
-            <div className="product-info">
-              <div>
-                Price: €{product.price} || Rating: ⭐{product.rating.rate} (
-                {product.rating.count})
-              </div>
-              <p className="product-description">{product.description}</p>
-            </div>
+      <h1>{product.title}</h1>
+      <div className="product-container">
+        <img className="product-image" src={product.image} />
+        <div className="product-info">
+          <div>
+            Price: €{product.price} || Rating: ⭐{product.rating.rate} (
+            {product.rating.count})
           </div>
-        </>
-      )}
+          <p className="product-description">{product.description}</p>
+        </div>
+      </div>
     </>
   );
 }

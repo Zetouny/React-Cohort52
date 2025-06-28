@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { NavLink } from "react-router";
+import { Link } from "react-router";
 
 function Products({ filter, setError }) {
   const [products, setProducts] = useState([]);
@@ -11,14 +11,16 @@ function Products({ filter, setError }) {
       try {
         let url = "https://fakestoreapi.com/products";
 
-        if (filter != "") {
+        if (filter !== "") {
           url = `https://fakestoreapi.com/products/category/${filter}`;
         }
 
         const response = await fetch(url);
 
         if (!response.ok) {
-          throw Error(`Couldn't fetch the data: ${response.status}`);
+          throw Error(
+            "We were unable to load the products, please try again in a moment"
+          );
         }
 
         const date = await response.json();
@@ -33,10 +35,10 @@ function Products({ filter, setError }) {
   }, [filter]);
 
   const productsList = products.map((product) => (
-    <NavLink className="product" key={product.id} to={`/product/${product.id}`}>
+    <Link className="product" key={product.id} to={`/product/${product.id}`}>
       <img className="product-image" src={product.image} />
       <p className="product-title">{product.title}</p>
-    </NavLink>
+    </Link>
   ));
 
   return (

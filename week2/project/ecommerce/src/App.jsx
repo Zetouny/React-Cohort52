@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Header from "./components/Header.jsx";
 import CategoriesTabs from "./components/CategoriesTabs.jsx";
 import Products from "./components/Products.jsx";
 
@@ -17,7 +16,7 @@ function App() {
         <div>{error}</div>
       ) : (
         <>
-          <Header title={"Products"} />
+          <h1>Products</h1>
           <CategoriesTabs
             filter={filter}
             setFilter={selectCategory}
