@@ -7,7 +7,7 @@ export default function FavoriteProvider({ children }) {
 
   function manageFavorite(id) {
     if (favorite.includes(id)) {
-      setFavorite((prev) => prev.filter((item) => item != id));
+      setFavorite((prev) => prev.filter((item) => item !== id));
     } else {
       setFavorite((prev) => [...prev, id]);
     }

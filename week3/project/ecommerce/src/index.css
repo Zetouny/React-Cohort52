@@ -1,22 +1,88 @@
 * {
   box-sizing: border-box;
 }
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 }
 
-#root {
-  margin: 0 auto;
+body {
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100dvw;
+  padding: 1rem;
+  background-color: #f2f2f2;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  z-index: 999;
+}
+
+.header .website-title > * {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #49516f;
+  text-decoration: none;
+}
+
+.header .nav-bar {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 2rem;
+  margin-right: 1rem;
+}
+
+.header .nav-bar .nav-link {
+  color: #49516f;
+  font-size: 1.3rem;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.25s ease;
+}
+
+.header .nav-bar .nav-link.active {
+  color: #6279b8;
+  text-decoration: underline;
+}
+
+.header .nav-bar .nav-link:hover {
+  color: #7f97d9;
+  text-decoration: underline;
+}
+
+.app-body {
+  margin: 3rem auto;
   padding: 2rem;
   text-align: center;
 }
 
-h1 {
+.page-title {
   font-size: 2.5rem;
-  line-height: 1.1;
   color: #49516f;
+}
+
+.status-error {
+  margin-top: 2rem;
+  padding: 2rem;
+  font-size: 1.5rem;
+  color: darkred;
+  border: 1px dashed darkred;
+}
+
+.status-loading {
+  margin-top: 2rem;
+  padding: 2rem;
+  font-size: 1.5rem;
+  color: darkgreen;
+  border: 1px dashed darkgreen;
 }
 
 .categories-tabs {
@@ -30,10 +96,10 @@ h1 {
 
 .categories-tabs .category-button {
   width: 100%;
-  flex-grow: 1;
   padding: 0.7rem 2rem;
   border: none;
   border-radius: 5px;
+  font-size: 1rem;
   font-weight: bold;
   color: #fff;
   text-transform: capitalize;
@@ -54,7 +120,7 @@ h1 {
   display: flex;
   flex-flow: row wrap;
   align-items: stretch;
-  justify-content: space-around;
+  justify-content: center;
   gap: 2rem;
   margin: 2rem 0;
   position: relative;
@@ -63,7 +129,6 @@ h1 {
 .product {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
   width: 100%;
   padding: 2rem;
   border-radius: 5px;
@@ -147,7 +212,7 @@ h1 {
 
 @media (min-width: 600px) {
   .categories-tabs .category-button {
-    width: calc(50% - 4.5rem);
+    width: calc(50% - 2rem);
   }
 
   .product {

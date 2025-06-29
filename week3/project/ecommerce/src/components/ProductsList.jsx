@@ -1,36 +1,28 @@
-import { useState, useEffect } from "react";
-import ProductCard from "./ProductCard";
-import useFetch from "../hooks/useFetch.jsx";
+import { useState, useEffect, useContext } from "react";
+import ProductCard from "./ProductCard.jsx";
+import useFetchOne from "../hooks/useFetchOne.jsx";
+import { AppStatusContext } from "../contexts/AppStatusContext.jsx";
 
-function Products({ filter, setError }) {
+function Products({ filter }) {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { loading } = useContext(AppStatusContext);
 
   let url = "https://fakestoreapi.com/products";
 
-  if (filter != "") {
+  if (filter !== "") {
     url = `https://fakestoreapi.com/products/category/${filter}`;
   }
 
-  const { data, error } = useFetch(url);
+  const { data } = useFetchOne(url);
 
   useEffect(() => {
-    if (data) {
-      setLoading(false);
-      setProducts(data);
-    } else {
-      setLoading(true);
-    }
-    if (error) {
-      setLoading(false);
-      setError(error);
-    }
-  }, [data, error, setError]);
+    setProducts(data);
+  }, [data]);
 
   return (
     <>
       {loading ? (
-        <div>Loading ...</div>
+        <div className="status-loading">Loading ...</div>
       ) : (
         <div id="products-list">
           {data.length > 0

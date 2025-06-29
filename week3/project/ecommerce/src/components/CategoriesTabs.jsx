@@ -1,28 +1,14 @@
 import { useState, useEffect } from "react";
+import useFetchOne from "../hooks/useFetchOne";
 
-function CategoriesTabs({ filter, setFilter, setError }) {
+function CategoriesTabs({ filter, setFilter }) {
   const [categories, setCategories] = useState([]);
 
+  const { data } = useFetchOne("https://fakestoreapi.com/products/categories");
+
   useEffect(() => {
-    async function fetchCategories() {
-      try {
-        const response = await fetch(
-          "https://fakestoreapi.com/products/categories"
-        );
-
-        if (!response.ok) {
-          throw new Error(`Couldn't fetch the data: ${response.status}`);
-        }
-
-        const date = await response.json();
-        setCategories(date);
-      } catch (error) {
-        setError(error.message);
-      }
-    }
-
-    fetchCategories();
-  }, []);
+    setCategories(data);
+  }, [data]);
 
   const categoriesList = categories.map((category) => {
     return (
