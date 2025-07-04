@@ -21,15 +21,17 @@ export default function Favorite() {
     return <div className="status-loading">Loading ...</div>;
   }
 
+  if (data.length === 0) {
+    return "You haven't chosen any favorites yet!";
+  }
+
   return (
     <>
       <h1 className="page-title">Favorites</h1>
       <div id="products-list">
-        {data.length > 0
-          ? data.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))
-          : "You haven't chosen any favorites yet!"}
+        {data.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
       </div>
     </>
   );

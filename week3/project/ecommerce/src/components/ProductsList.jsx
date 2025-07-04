@@ -1,10 +1,9 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import ProductCard from "./ProductCard.jsx";
 import useFetchOne from "../hooks/useFetchOne.jsx";
 import { AppStatusContext } from "../contexts/AppStatusContext.jsx";
 
-function Products({ filter }) {
-  const [products, setProducts] = useState([]);
+export default function Products({ filter }) {
   const { loading } = useContext(AppStatusContext);
 
   let url = "https://fakestoreapi.com/products";
@@ -15,25 +14,19 @@ function Products({ filter }) {
 
   const { data } = useFetchOne(url);
 
-  useEffect(() => {
-    setProducts(data);
-  }, [data]);
+  if (loading) {
+    return <div className="status-loading">Loading ...</div>;
+  }
+
+  if (data.length === 0) {
+    return "No products found";
+  }
 
   return (
-    <>
-      {loading ? (
-        <div className="status-loading">Loading ...</div>
-      ) : (
-        <div id="products-list">
-          {data.length > 0
-            ? products.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))
-            : "No products found"}
-        </div>
-      )}
-    </>
+    <div id="products-list">
+      {data.map((product) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </div>
   );
 }
-
-export default Products;

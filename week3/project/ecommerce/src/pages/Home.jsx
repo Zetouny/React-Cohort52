@@ -3,7 +3,7 @@ import CategoriesTabs from "../components/CategoriesTabs.jsx";
 import ProductsList from "../components/ProductsList.jsx";
 import { AppStatusContext } from "../contexts/AppStatusContext.jsx";
 
-function Home() {
+export default function Home() {
   const [filter, setFilter] = useState("");
   const { error } = useContext(AppStatusContext);
 
@@ -11,21 +11,19 @@ function Home() {
     setFilter((prev) => (prev === category ? "" : category));
   }
 
+  if (error) {
+    return (
+      <div className="status-error">
+        <b>Unexpected Error:</b> <p>{error}</p>
+      </div>
+    );
+  }
+
   return (
     <>
-      {error ? (
-        <div className="status-error">
-          <b>Unexpected Error:</b> <p>{error}</p>
-        </div>
-      ) : (
-        <>
-          <h1 className="page-title">Products</h1>
-          <CategoriesTabs filter={filter} setFilter={selectCategory} />
-          <ProductsList filter={filter} />
-        </>
-      )}
+      <h1 className="page-title">Products</h1>
+      <CategoriesTabs filter={filter} setFilter={selectCategory} />
+      <ProductsList filter={filter} />
     </>
   );
 }
-
-export default Home;
